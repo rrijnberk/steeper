@@ -1,0 +1,8 @@
+{
+  "cwd": "/",
+  "files": ["**/*.tea"],
+  "target": {
+    "dir": "src/styles/variables",
+    "name": "variables"
+  }
+}

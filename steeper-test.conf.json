@@ -1,0 +1,6 @@
+{
+  "files": ["test/src/**/*.tea", "test/src/**/dimensions.tea"],
+  "target": {
+    "dir": "test/generated"
+  }
+}

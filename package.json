@@ -1,0 +1,25 @@
+{
+  "name": "steeper",
+  "version": "0.1.0",
+  "description": "A pre-processor to generate SASS variables conforming to the T.E.A(.M) naming convention.",
+  "main": "lib/cli.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "teamaker": "lib/cli.ts"
+  },
+  "keywords": [
+    "SASS",
+    "Tea",
+    "Generator",
+    "CLI"
+  ],
+  "author": "Richard Rijnberk <r.rijnberk@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
+    "object-assign-deep": "^0.4.0"
+  }
+}

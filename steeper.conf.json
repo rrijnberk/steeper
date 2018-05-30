@@ -1,3 +1,6 @@
 {
-  "files": ["test/src/**/*.tea"]
+  "files": ["test/src/**/*.tea"],
+  "target": {
+    "postfix": "generated"
+  }
 }

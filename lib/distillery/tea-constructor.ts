@@ -98,11 +98,12 @@ class TeaConstructor {
     }
 
     setAttribute(name, value, description) {
-        const map = this.getMap();
-        map.set({
-            type: TEATypes.ATTRIBUTE,
-            name
-        }, value, description);
+        const map = this.getMap(),
+            key = {
+                type: TEATypes.ATTRIBUTE,
+                name
+            };
+        map.set(key, value, description);
     }
 
     setElement(name) {

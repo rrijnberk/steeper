@@ -1,0 +1,11 @@
+.idea/
+
+/docs/
+/test/
+/src/
+
+/*.tgz
+/*.iml
+/*.conf.json
+
+package-lock.json

@@ -1,11 +1,16 @@
-type color {
-    element input {
-        attribute border: #000 : [ The color for input borders ];
+type color [ Variables refering to colors ] {
+    element input [
+        Variables refering to input element colors and that sort of stuff,
+        or maybe something else. Just possibly red colors.
+
+        That reminds me of a great story
+    ] {
         attribute width: 2px : [ The width of an input ];
         attribute width: 1px : [ The width of an input ];
+        attribute border: #000 : [ The color for input borders ];
 
         modifier disabled {
-            attribute border: #000 : [ The color for input borders ];
+            attribute border: #000 : [ The color for disabled input borders ];
         }
     }
 

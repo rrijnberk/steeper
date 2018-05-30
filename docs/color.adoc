@@ -1,0 +1,34 @@
+
+== color
+Variables refering to colors
+
+=== input
+Variables refering to input element colors and that sort of stuff,
+or maybe something else. Just possibly red colors.
+
+That reminds me of a great story
+
+[%header,cols=3]
+|===
+| Name | Value | Descriptions 
+| $color__input--border | #000 | The color for input borders 
+| $color__input--width | 1px | The width of an input |
+|===
+
+==== disabled
+No description was given for this modifier.
+
+[%header,cols=3]
+|===
+| Name | Value | Descriptions 
+| $color__input--border---disabled | #000 | The color for disabled input borders |
+|===
+
+=== input
+No description was given for this element.
+
+[%header,cols=3]
+|===
+| Name | Value | Descriptions 
+| $color--input | #F00 | The color of an input |
+|===

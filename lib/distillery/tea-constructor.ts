@@ -5,17 +5,20 @@ const TEATypes = require('../models/tea-types.ts');
 const MATCH_CONFIG = {
     ELEMENT: 1,
     ELEMENT_NAME: 2,
+    ELEMENT_DESCRIPTION: 3,
     MODIFIER: 1,
     MODIFIER_NAME: 2,
+    MODIFIER_DESCRIPTION: 3,
     TYPE: 1,
     TYPE_NAME: 2,
+    TYPE_DESCRIPTION: 3,
 
-    ATTRIBUTE: 3,
-    ATTRIBUTE_NAME: 4,
-    ATTRIBUTE_VALUE: 5,
-    ATTRIBUTE_DESCRIPTION: 6,
+    ATTRIBUTE: 4,
+    ATTRIBUTE_NAME: 5,
+    ATTRIBUTE_VALUE: 6,
+    ATTRIBUTE_DESCRIPTION: 7,
 
-    GROUP_CLOSE: 7
+    GROUP_CLOSE: 8
 };
 
 class TeaConstructor {
@@ -37,7 +40,7 @@ class TeaConstructor {
     }
 
     deconstruct(source) {
-        const deconstructionRegex = /(?:(?:(type|element|modifier)\s{1,}([-a-zA-Z0-9]{1,})\s{1,}\{(?:\s|\n){0,})|(?:(attribute)\s{1,}([-a-zA-Z0-9]{0,})\s{0,}:\s{0,}(.*?)(?:\s{0,}:\s{0,})(?:\[\s{0,}(.*?)\s{0,}\]);(?:\n|\s){0,})|(})(?:\n|\s){0,})/gy;
+        const deconstructionRegex = /(?:(?:(type|element|modifier)\s{1,}([-a-zA-Z0-9]{1,})(?:\s{1,}\[(?:\s|\n){0,}((?:.|\n)*?)(?:\s|\n){0,}\]){0,}\s{1,}\{(?:\s|\n){0,})|(?:(attribute)\s{1,}([-a-zA-Z0-9]{0,})\s{0,}:\s{0,}(.*?)(?:\s{0,}:\s{0,})(?:\[\s{0,}(.*?)\s{0,}\]);(?:\n|\s){0,})|(})(?:\n|\s){0,})/gy;
         let match;
 
         while ((match = deconstructionRegex.exec(source)) !== null) {
@@ -56,9 +59,9 @@ class TeaConstructor {
             match[MATCH_CONFIG.GROUP_CLOSE]
         ) {
             case 'type':
-                return this.setType.bind(this)(match[MATCH_CONFIG.TYPE_NAME]);
+                return this.setType.bind(this)(match[MATCH_CONFIG.TYPE_NAME], match[MATCH_CONFIG.TYPE_DESCRIPTION]);
             case 'element':
-                return this.setElement.bind(this)(match[MATCH_CONFIG.ELEMENT_NAME]);
+                return this.setElement.bind(this)(match[MATCH_CONFIG.ELEMENT_NAME], match[MATCH_CONFIG.ELEMENT_DESCRIPTION]);
             case 'attribute':
                 return this.setAttribute.bind(this)(
                     match[MATCH_CONFIG.ATTRIBUTE_NAME],
@@ -66,7 +69,7 @@ class TeaConstructor {
                     match[MATCH_CONFIG.ATTRIBUTE_DESCRIPTION]
                 );
             case 'modifier':
-                return this.setModifier.bind(this)(match[MATCH_CONFIG.MODIFIER_NAME]);
+                return this.setModifier.bind(this)(match[MATCH_CONFIG.MODIFIER_NAME], match[MATCH_CONFIG.MODIFIER_DESCRIPTION]);
             case '}':
                 return this.closeGroup();
             default:
@@ -106,26 +109,26 @@ class TeaConstructor {
         map.set(key, value, description);
     }
 
-    setElement(name) {
-        this.updateLocalStorageAndLevel(TEATypes.ELEMENT, name);
+    setElement(name, description) {
+        this.updateLocalStorageAndLevel(TEATypes.ELEMENT, name, description);
     }
 
-    setModifier(name) {
-        this.updateLocalStorageAndLevel(TEATypes.MODIFIER, name);
+    setModifier(name, description) {
+        this.updateLocalStorageAndLevel(TEATypes.MODIFIER, name, description);
     }
 
-    setType(name) {
-        this.updateLocalStorageAndLevel(TEATypes.TYPE, name);
+    setType(name, description) {
+        this.updateLocalStorageAndLevel(TEATypes.TYPE, name, description);
     }
 
-    updateLocalStorageAndLevel(teaType, name) {
+    updateLocalStorageAndLevel(teaType, name, description = '') {
         this.teaConstruct[teaType] = {
             type: teaType,
             name
         };
         const map = this.getMap();
         if(!map.has(this.teaConstruct[teaType])) {
-            map.set(this.teaConstruct[teaType], new TEAMap());
+            map.set(this.teaConstruct[teaType], new TEAMap(), description);
         }
     }
 }

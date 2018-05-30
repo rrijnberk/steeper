@@ -1,0 +1,20 @@
+== dimensions
+No description was given for this type.
+
+=== input
+No description was given for this element.
+
+[%header,cols=3]
+|===
+| Name | Value | Descriptions 
+| $dimensions__input--border-width | 1px | The width of input borders (with some stuff). |
+|===
+
+==== disabled
+No description was given for this modifier.
+
+[%header,cols=3]
+|===
+| Name | Value | Descriptions 
+| $dimensions__input--border-width---disabled | 2px | The width of disabled input borders |
+|===

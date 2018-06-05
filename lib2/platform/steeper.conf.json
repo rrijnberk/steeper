@@ -1,0 +1,11 @@
+{
+  "files": ["**/*.tea"],
+  "target": {
+    "dir": "src/styles/variables",
+    "name": "variables",
+    "postfix": ""
+  },
+  "docs": {
+    "target": "docs"
+  }
+}

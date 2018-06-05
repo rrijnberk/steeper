@@ -23,7 +23,7 @@ function readFileSync(filePath) {
 }
 
 async function sources() {
-    return await new Promise( resolve => {
+    return await new Promise(resolve => {
         Promise.all(config.files.map(parseGlob)).then(results => {
             results = new Set(results.reduce(reducer));
             resolve(Array.from(results).map(readFileSync).join('\n'))

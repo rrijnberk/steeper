@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "steeper": "lib/cli.ts"
+    "steeper": "lib2/cli.ts"
   },
   "keywords": [
     "SASS",

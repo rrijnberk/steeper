@@ -1,3 +1,5 @@
+const {TEA_TYPES} = require('../models/tea.types.ts');
+
 class TEAObjectIterator {
     constructor() {
         this.nodeHandlers = [];
@@ -23,6 +25,10 @@ class TEAObjectIterator {
     generateComposite(old, json) {
         let result = Object.assign({}, old);
         result[json.type] = (result[json.type] || []);
+        if(json.type === TEA_TYPES.ATTRIBUTE) {
+            console.log('filtering', )
+            result[TEA_TYPES.ATTRIBUTE] = result[TEA_TYPES.ATTRIBUTE].filter(attribute => !attribute.value);
+        }
         result[json.type].push(this.condense(json));
         return result;
     }
@@ -33,14 +39,8 @@ class TEAObjectIterator {
 
     iterativeIterator(key, json, composition) {
         if (!composition) composition = {};
-
         const newComposition = this.generateComposite(composition, json);
         const children = Object.keys(json).filter(this.nonDescriptiveKeys.bind(this));
-
-        // if (json.type === TYPES.ATTRIBUTE && json.value) {
-        //     results[newComposition.type.join('-')] = results[newComposition.type.join('-')] || [];
-        //     results[newComposition.type.join('-')].push(generateVariable(newComposition, json.value));
-        // }
         this.nodeHandlers.map(nodeHandler => nodeHandler(this.condense(json), newComposition));
         children.map(key => this.iterativeIterator(key, json[key], newComposition));
     }

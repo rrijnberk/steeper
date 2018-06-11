@@ -1,7 +1,8 @@
-module.exports = {
+const TEA_TYPES = {
     ATTRIBUTE: 'attribute',
     ELEMENT: 'element',
     MODIFIER: 'modifier',
-    ROOT: 'root',
     TYPE: 'type'
 };
+
+exports.TEA_TYPES = TEA_TYPES;

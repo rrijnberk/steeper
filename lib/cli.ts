@@ -1,13 +1,51 @@
 #! /usr/bin/env node
 
-const { reader } = require('./support/reader.ts');
-const { teaConstructor } = require('./distillery/tea-constructor.ts');
-const { writer } = require('./support/writer.ts');
+const fs = require('fs-extra');
+const path = require('path');
 
-reader.sources().then(sources => {
-    const teaConstruct = teaConstructor.parse(sources);
-    writer.writeSASS(teaConstruct);
-    writer.writeAdoc(teaConstruct);
-});
+const {
+    resolveFiles,
+    resolveSources
+} = require('./platform/reader.ts');
 
+const {
+    parseTEASource
+} = require('./platform/tea.parser.ts');
+
+const {
+    filesArrayPromiseHandler,
+    objectArrayPromisesHandler,
+    objectPromisesHandler,
+    sourceArrayPromiseHandler
+} = require('./platform/promise.handlers.ts');
+
+const { AdocWriter } = require('./output/adoc.writer.ts');
+const { SassWriter } = require('./output/sass.writer.ts');
+const { TEAObjectIterator } = require('./platform/tea.object.iterator.ts');
+
+console.log('Running lib2')
+
+const sourcePromises = resolveFiles()
+    .map(filesArrayPromiseHandler(resolveSources))
+    .map(sourceArrayPromiseHandler(parseTEASource));
+
+function handleJsonToOutput(json) {
+    const teaObjectIterator = new TEAObjectIterator();
+    const sassWriter = new SassWriter();
+    const adocWriter = new AdocWriter();
+
+    teaObjectIterator.addNodeHandler(sassWriter.addLine.bind(sassWriter));
+    teaObjectIterator.addNodeHandler(adocWriter.addNode.bind(adocWriter));
+
+    teaObjectIterator.iterate(json);
+
+
+    sassWriter.write();
+    adocWriter.write();
+}
+
+Promise.all(sourcePromises)
+    .then(objectArrayPromisesHandler)
+    .then(objectPromisesHandler)
+    .then(handleJsonToOutput);
 

@@ -5,7 +5,7 @@ const CONFIG_FILE = 'steeper.conf.json';
 
 const params = resolveParameters();
 
-const defaults = require('../' + CONFIG_FILE);
+const defaults = require('./' + CONFIG_FILE);
 const overrides = require(path.resolve(`./${params.config}`));
 
 function resolveParameters() {

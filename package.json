@@ -1,7 +1,8 @@
 {
   "name": "steeper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A pre-processor to generate SASS variables conforming to the T.E.A(.M) naming convention.",
+  "repository": "https://github.com/rrijnberk/steeper",
   "main": "lib/cli.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

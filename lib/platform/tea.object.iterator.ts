@@ -26,7 +26,6 @@ class TEAObjectIterator {
         let result = Object.assign({}, old);
         result[json.type] = (result[json.type] || []);
         if(json.type === TEA_TYPES.ATTRIBUTE) {
-            console.log('filtering', )
             result[TEA_TYPES.ATTRIBUTE] = result[TEA_TYPES.ATTRIBUTE].filter(attribute => !attribute.value);
         }
         result[json.type].push(this.condense(json));

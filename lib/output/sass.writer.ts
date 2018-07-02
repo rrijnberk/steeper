@@ -17,7 +17,6 @@ class SassWriter {
     addLine(json, composition) {
         if (json.type === TEA_TYPES.ATTRIBUTE && json.value) {
             const condensed = condense(composition);
-            console.log(generateVariable(condensed), composition);
             this.types[condensed.type.trim()] = this.types[condensed.type.trim()] || [];
             this.types[condensed.type.trim()].push(generateVariable(condensed) + `: ${json.value};`);
         }

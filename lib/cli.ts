@@ -23,8 +23,6 @@ const { AdocWriter } = require('./output/adoc.writer.ts');
 const { SassWriter } = require('./output/sass.writer.ts');
 const { TEAObjectIterator } = require('./platform/tea.object.iterator.ts');
 
-console.log('Running lib2')
-
 const sourcePromises = resolveFiles()
     .map(filesArrayPromiseHandler(resolveSources))
     .map(sourceArrayPromiseHandler(parseTEASource));
@@ -38,7 +36,6 @@ function handleJsonToOutput(json) {
     teaObjectIterator.addNodeHandler(adocWriter.addNode.bind(adocWriter));
 
     teaObjectIterator.iterate(json);
-
 
     sassWriter.write();
     adocWriter.write();
